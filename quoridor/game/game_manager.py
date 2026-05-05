@@ -13,9 +13,9 @@ This module is responsible for:
 - Connecting later with the AI player
 """
 
-from board import Board
-from pawn import Pawn
-from pathfinder import get_valid_moves, bfs_path_exists
+from game.board import Board
+from game.pawn import Pawn
+from game.pathfinder import get_valid_moves, bfs_path_exists
 
 
 class GameManager:
