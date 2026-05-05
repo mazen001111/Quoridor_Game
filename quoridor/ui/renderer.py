@@ -37,6 +37,7 @@ class Renderer:
 
         self.draw_board()
         self.draw_highlights(event_handler)
+        self.draw_ghost_wall(event_handler)
         self.draw_walls(manager.board)
         self.draw_pawns(manager)
         self.draw_hud(manager, event_handler)
@@ -130,6 +131,29 @@ class Renderer:
             highlight = pygame.Surface((CELL_SIZE, CELL_SIZE), pygame.SRCALPHA)
             highlight.fill((80, 200, 100, 120))
             self.screen.blit(highlight, (x, y))
+
+    def draw_ghost_wall(self, event_handler):
+        """Draw a semi-transparent ghost wall at the hovered wall position."""
+        if event_handler is None or event_handler.hovered_wall is None:
+            return
+
+        row, col, orientation = event_handler.hovered_wall
+        x, y = self.cell_to_pixel(row, col)
+
+        if orientation == 'H':
+            wall_x = x
+            wall_y = y + CELL_SIZE
+            wall_width = 2 * CELL_SIZE + GAP
+            wall_height = GAP
+        else:
+            wall_x = x + CELL_SIZE
+            wall_y = y
+            wall_width = GAP
+            wall_height = 2 * CELL_SIZE + GAP
+
+        ghost = pygame.Surface((wall_width, wall_height), pygame.SRCALPHA)
+        ghost.fill((80, 40, 10, 130))
+        self.screen.blit(ghost, (wall_x, wall_y))
 
     def draw_hud(self, manager, event_handler=None):
         turn_text = f"Player {manager.current_player}'s Turn"

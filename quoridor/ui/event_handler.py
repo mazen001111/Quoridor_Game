@@ -15,9 +15,13 @@ class EventHandler:
         self.mode = "move"
         self.selected_pawn = False
         self.valid_moves = []
+        self.hovered_wall = None
 
     def handle_event(self, event):
-        if event.type == pygame.MOUSEBUTTONDOWN:
+        if event.type == pygame.MOUSEMOTION:
+            self.handle_mouse_motion(event.pos)
+
+        elif event.type == pygame.MOUSEBUTTONDOWN:
             self.handle_click(event.pos)
 
         elif event.type == pygame.KEYDOWN:
@@ -72,6 +76,15 @@ class EventHandler:
         self.selected_pawn = False
         self.valid_moves = []
         self.manager.message = "Click your pawn first."
+
+    def handle_mouse_motion(self, mouse_pos):
+        """Update hovered_wall when mouse moves (for ghost wall display)."""
+        if self.mode != "wall" or self.manager.game_over:
+            self.hovered_wall = None
+            return
+
+        wall = self.pixel_to_wall_slot(mouse_pos)
+        self.hovered_wall = wall
 
     def handle_wall_click(self, mouse_pos):
         wall = self.pixel_to_wall_slot(mouse_pos)
