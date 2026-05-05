@@ -286,4 +286,5 @@ class GameManager:
             state.pawns
             state.current_player
         """
-        return self"""Turn management and win condition handling."""
+        return self  # Turn management and win condition handling.
+
