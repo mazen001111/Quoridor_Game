@@ -1,6 +1,8 @@
 """Mouse and keyboard input handling."""
 import pygame
 
+from ui.menus import RESET_BUTTON_RECT
+
 
 CELL_SIZE = 60
 GAP = 10
@@ -16,12 +18,17 @@ class EventHandler:
         self.selected_pawn = False
         self.valid_moves = []
 
+        self.hovered_wall = None
+
     def handle_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
             self.handle_click(event.pos)
 
         elif event.type == pygame.KEYDOWN:
             self.handle_key(event.key)
+
+        elif event.type == pygame.MOUSEMOTION:
+            self.handle_hover(event.pos)    
 
     def handle_key(self, key):
         if key == pygame.K_w:
@@ -40,6 +47,13 @@ class EventHandler:
             self.valid_moves = []
 
     def handle_click(self, mouse_pos):
+        if RESET_BUTTON_RECT.collidepoint(mouse_pos):
+            self.manager.reset_game()
+            self.selected_pawn = False
+            self.valid_moves = []
+            self.manager.message = "Game Reset!"
+            return  # Stop here, don't process anything else!
+        
         if self.manager.game_over:
             return
 
@@ -48,6 +62,14 @@ class EventHandler:
 
         elif self.mode == "wall":
             self.handle_wall_click(mouse_pos)
+
+    def handle_hover(self, mouse_pos):
+        # We only care about hovering walls if we are actually in Wall Mode
+        if self.mode == "wall":
+            
+            self.hovered_wall = self.pixel_to_wall_slot(mouse_pos)
+        else:
+            self.hovered_wall = None
 
     def handle_move_click(self, mouse_pos):
         cell = self.pixel_to_cell(mouse_pos)
