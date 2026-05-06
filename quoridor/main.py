@@ -9,7 +9,7 @@ from ui.menus import show_start_menu
 def main():
     pygame.init()
 
-    screen = pygame.display.set_mode((800, 800))
+    screen = pygame.display.set_mode((1000, 800))
     pygame.display.set_caption("Quoridor")
 
     clock = pygame.time.Clock()
