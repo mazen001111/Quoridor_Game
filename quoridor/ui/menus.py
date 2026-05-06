@@ -10,7 +10,8 @@ GREEN = (80, 160, 100)
 BLUE = (80, 100, 180)
 
 
-def draw_button(screen, rect, text, font, color):
+
+def draw_button(screen, rect, text, font, color):           # Helper to draw a button with text
     pygame.draw.rect(screen, color, rect, border_radius=10)
     pygame.draw.rect(screen, BLACK, rect, 2, border_radius=10)
 
@@ -19,7 +20,7 @@ def draw_button(screen, rect, text, font, color):
     screen.blit(label, label_rect)
 
 
-def show_start_menu(screen):
+def show_start_menu(screen):                # Display the start menu and return the selected mode and difficulty
     font_big = pygame.font.SysFont("arial", 52)
     font = pygame.font.SysFont("arial", 28)
 
@@ -29,8 +30,8 @@ def show_start_menu(screen):
     while True:
         screen.fill(DARK)
 
-        title = font_big.render("QUORIDOR", True, WHITE)
-        screen.blit(title, (260, 170))
+        title = font_big.render("QUORIDOR GAME", True, WHITE)
+        screen.blit(title, (225, 170))
 
         draw_button(screen, hvh_button, "Human vs Human", font, GREEN)
         draw_button(screen, hvc_button, "Human vs Computer", font, BLUE)
@@ -46,17 +47,22 @@ def show_start_menu(screen):
                 if hvh_button.collidepoint(event.pos):
                     return "hvh", None
 
-                if hvc_button.collidepoint(event.pos):
-                    return show_difficulty_menu(screen)
+                if hvc_button.collidepoint(event.pos):    
+                    mode, difficulty = show_difficulty_menu(screen)
+
+                    if mode != "back":
+                        return mode, difficulty
+                
 
 
-def show_difficulty_menu(screen):
+def show_difficulty_menu(screen):           # Display the difficulty selection menu and return the selected difficulty
     font_big = pygame.font.SysFont("arial", 44)
     font = pygame.font.SysFont("arial", 28)
 
     easy_button = pygame.Rect(250, 280, 300, 60)
     medium_button = pygame.Rect(250, 370, 300, 60)
     hard_button = pygame.Rect(250, 460, 300, 60)
+    back_button = pygame.Rect(20, 20, 100, 40)
 
     while True:
         screen.fill(DARK)
@@ -67,6 +73,7 @@ def show_difficulty_menu(screen):
         draw_button(screen, easy_button, "Easy", font, GREEN)
         draw_button(screen, medium_button, "Medium", font, BLUE)
         draw_button(screen, hard_button, "Hard", font, (160, 80, 80))
+        draw_button(screen, back_button, "Back", font, (100, 100, 100))
 
         pygame.display.flip()
 
@@ -84,3 +91,12 @@ def show_difficulty_menu(screen):
 
                 if hard_button.collidepoint(event.pos):
                     return "hvc", "hard"
+                if back_button.collidepoint(event.pos):
+                    return "back", None
+
+RESET_BUTTON_RECT = pygame.Rect(650, 20, 100, 40)
+def draw_reset_button(screen):
+    """Draws the reset button on the screen during gameplay."""
+    font = pygame.font.SysFont("arial", 20)
+    # Using the dark red color
+    draw_button(screen, RESET_BUTTON_RECT, "Reset", font, (160, 80, 80))
