@@ -2,7 +2,7 @@
 import pygame
 
 from ui.renderer import (
-    BTN_MOVE_RECT, BTN_WALL_RECT, BTN_RESET_RECT,
+    BTN_MOVE_RECT, BTN_WALL_RECT, BTN_UNDO_RECT, BTN_REDO_RECT,
     BOARD_OFFSET_X, BOARD_OFFSET_Y, CELL_SIZE, GAP,
 )
 
@@ -15,6 +15,34 @@ class EventHandler:
         self.valid_moves = []
         self.hovered_wall = None
 
+    def handle_menu_clicks(self, event, renderer, is_paused):
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+            mouse_pos = event.pos
+            
+            # Scenario A: Game is OVER -> Check Winner Overlay Options
+            if self.manager.game_over:
+                if renderer.win_restart_btn.collidepoint(mouse_pos):
+                    return "RESTART"
+                elif renderer.win_exit_btn.collidepoint(mouse_pos):
+                    return "MAIN_MENU"
+                return None  # Ignore board clicks when game is over
+            
+            # Scenario B: Game is active -> Check if player clicks the floating corner icon
+            if not is_paused:
+                if renderer.menu_icon_rect.collidepoint(mouse_pos):
+                    return "PAUSE"
+            
+            # Scenario C: Modal overlay is active -> Check options menu items
+            else:
+                if renderer.resume_btn.collidepoint(mouse_pos):
+                    return "RESUME"
+                elif renderer.restart_btn.collidepoint(mouse_pos):
+                    return "RESTART"
+                elif renderer.exit_btn.collidepoint(mouse_pos):
+                    return "MAIN_MENU"
+                    
+        return None
+
     def handle_event(self, event):
         if event.type == pygame.MOUSEMOTION:
             self.handle_mouse_motion(event.pos)
@@ -26,8 +54,6 @@ class EventHandler:
     def handle_key(self, key):
         if key == pygame.K_w:
             self._toggle_mode()
-        elif key == pygame.K_r:
-            self._reset()
         elif key == pygame.K_u:          # ← UNDO
             self.manager.undo()
             self._clear_selection()
@@ -36,9 +62,16 @@ class EventHandler:
             self._clear_selection()
 
     def handle_click(self, mouse_pos):
-        if BTN_RESET_RECT.collidepoint(mouse_pos):
-            self._reset()
+        # NEW: Check Undo / Redo buttons
+        if BTN_UNDO_RECT.collidepoint(mouse_pos):
+            self.manager.undo()
+            self._clear_selection()
             return
+        if BTN_REDO_RECT.collidepoint(mouse_pos):
+            self.manager.redo()
+            self._clear_selection()
+            return
+            
         if BTN_MOVE_RECT.collidepoint(mouse_pos):
             self._set_mode("move")
             return
@@ -78,11 +111,6 @@ class EventHandler:
             self.manager.message = "Move mode: click your pawn."
         else:
             self.manager.message = "Wall mode: click a gap to place."
-
-    def _reset(self):
-        self.manager.reset_game()
-        self._clear_selection()
-        self.mode = "move"
 
     def _handle_move_click(self, mouse_pos):
         cell = self._pixel_to_cell(mouse_pos)

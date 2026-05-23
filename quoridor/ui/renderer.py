@@ -8,7 +8,7 @@ Layout (1000x800 window):
   - Left sidebar: Player 1 wall rack
   - Right sidebar: Player 2 wall rack
   - Centre: 9x9 dark board
-  - Bottom bar: player pill | MOVE btn | WALL btn | RESET btn
+  - Bottom bar: player pill | MOVE btn | WALL btn | UNDO btn | REDO btn
 """
 import pygame
 
@@ -56,7 +56,10 @@ BTN_MOVE_ON    = (50,  160,  80)
 BTN_MOVE_OFF   = (30,   80,  45)
 BTN_WALL_ON    = (180, 110,  30)
 BTN_WALL_OFF   = (75,   55,  20)
-BTN_RESET      = (140,  35,  35)
+
+# New Button Colors
+BTN_UNDO       = (130,  90,  50)
+BTN_REDO       = (70,  110, 140)
 BTN_TEXT       = (240, 240, 240)
 
 TEXT_MAIN      = (230, 225, 240)
@@ -76,7 +79,8 @@ _btn_y = BOTTOM_BAR_Y + (BOTTOM_BAR_H - BTN_H) // 2
 
 BTN_MOVE_RECT  = pygame.Rect(SCREEN_W // 2 - BTN_W - 8, _btn_y, BTN_W, BTN_H)
 BTN_WALL_RECT  = pygame.Rect(SCREEN_W // 2 + 8,          _btn_y, BTN_W, BTN_H)
-BTN_RESET_RECT = pygame.Rect(SCREEN_W - 170,             _btn_y, 140,   BTN_H)
+BTN_UNDO_RECT  = pygame.Rect(SCREEN_W - 320,             _btn_y, 130,   BTN_H)
+BTN_REDO_RECT  = pygame.Rect(SCREEN_W - 170,             _btn_y, 130,   BTN_H)
 
 # ── Sidebar geometry ──────────────────────────────────────────────────────────
 SIDEBAR_W     = BOARD_OFFSET_X - 10
@@ -113,9 +117,23 @@ class Renderer:
         self.font_lg  = load_font(30, bold=True)
         self.font_xl  = load_font(52, bold=True)
         self.font_hud = load_font(20, bold=True)
+        
+        # UI Menu Elements Geometry
+        self.menu_icon_rect = pygame.Rect(SCREEN_W - 60, 20, 40, 40)
+        
+        # Modal pause menu geometry
+        modal_w, modal_h = 320, 320
+        mx = (SCREEN_W - modal_w) // 2
+        my = (SCREEN_H - modal_h) // 2
+        self.resume_btn = pygame.Rect(mx + 40, my + 90, modal_w - 80, 50)
+        self.restart_btn = pygame.Rect(mx + 40, my + 160, modal_w - 80, 50)
+        self.exit_btn = pygame.Rect(mx + 40, my + 230, modal_w - 80, 50)
+        # Winner overlay button geometry
+        self.win_restart_btn = pygame.Rect(SCREEN_W // 2 - 190, SCREEN_H // 2 + 10, 170, 50)
+        self.win_exit_btn = pygame.Rect(SCREEN_W // 2 + 20, SCREEN_H // 2 + 10, 170, 50)
 
     # ── Master draw ────────────────────────────────────────────────────────────
-    def draw(self, manager, event_handler=None):
+    def draw(self, manager, event_handler=None, is_paused=False):
         self.screen.fill(BG_DARK)
         self._draw_header(manager)
         self._draw_board_bg()
@@ -125,8 +143,13 @@ class Renderer:
         self._draw_pawns(manager)
         self._draw_sidebars(manager)
         self._draw_bottom_bar(manager, event_handler)
+        
+        self._draw_menu_icon()
+
         if manager.game_over:
             self._draw_winner_overlay(manager)
+        elif is_paused:
+            self._draw_pause_overlay()
 
     # ── Header ────────────────────────────────────────────────────────────────
     def _draw_header(self, manager):
@@ -170,14 +193,12 @@ class Renderer:
             r  = CELL_SIZE // 2 - 6
             color = PAWN_P1 if pid == 1 else PAWN_P2
 
-            # Drop shadow
             sh = pygame.Surface((r*2+8, r*2+8), pygame.SRCALPHA)
             pygame.draw.circle(sh, (0, 0, 0, 120), (r+4, r+6), r)
             self.screen.blit(sh, (cx - r - 4, cy - r - 4))
 
             pygame.draw.circle(self.screen, color, (cx, cy), r)
 
-            # Specular glint
             shine = pygame.Surface((r*2, r*2), pygame.SRCALPHA)
             pygame.draw.circle(shine, PAWN_SHINE, (r//2, r//2), r//3)
             self.screen.blit(shine, (cx - r, cy - r))
@@ -274,9 +295,13 @@ class Renderer:
         self._draw_mode_btn(BTN_WALL_RECT, "WALL",
                             BTN_WALL_ON if mode == "wall" else BTN_WALL_OFF,
                             active=(mode == "wall"))
-        self._draw_mode_btn(BTN_RESET_RECT, "RESET", BTN_RESET, active=False)
+                            
+        # New Undo / Redo Buttons
+        self._draw_mode_btn(BTN_UNDO_RECT, "UNDO", BTN_UNDO, active=False)
+        self._draw_mode_btn(BTN_REDO_RECT, "REDO", BTN_REDO, active=False)
 
-        hint = self.font_sm.render("W: toggle mode  |  R: reset", True, TEXT_DIM)
+        # Updated Keybinding Hint
+        hint = self.font_sm.render("W: toggle mode  |  U: undo  |  P: redo", True, TEXT_DIM)
         self.screen.blit(hint, (SCREEN_W // 2 - hint.get_width() // 2,
                                 BOTTOM_BAR_Y + BOTTOM_BAR_H - 22))
 
@@ -288,7 +313,46 @@ class Renderer:
         self.screen.blit(txt, (rect.centerx - txt.get_width() // 2,
                                rect.centery - txt.get_height() // 2))
 
-    # ── Winner overlay ────────────────────────────────────────────────────────
+    # ── Menu & Pause Overlay ──────────────────────────────────────────────────
+    def _draw_menu_icon(self):
+        pygame.draw.rect(self.screen, BG_PANEL, self.menu_icon_rect, border_radius=8)
+        pygame.draw.rect(self.screen, CELL_BORDER, self.menu_icon_rect, 2, border_radius=8)
+        
+        for i in range(3):
+            line_y = self.menu_icon_rect.y + 12 + (i * 8)
+            pygame.draw.line(self.screen, TEXT_MAIN, 
+                             (self.menu_icon_rect.x + 10, line_y), 
+                             (self.menu_icon_rect.x + 30, line_y), 3)
+
+    def _draw_pause_overlay(self):
+        overlay = pygame.Surface((SCREEN_W, SCREEN_H), pygame.SRCALPHA)
+        overlay.fill((0, 0, 0, 190))
+        self.screen.blit(overlay, (0, 0))
+
+        modal_w, modal_h = 320, 320
+        mx = (SCREEN_W - modal_w) // 2
+        my = (SCREEN_H - modal_h) // 2
+        card = pygame.Rect(mx, my, modal_w, modal_h)
+        
+        pygame.draw.rect(self.screen, BG_PANEL, card, border_radius=16)
+        pygame.draw.rect(self.screen, CELL_BORDER, card, 2, border_radius=16)
+
+        title = self.font_lg.render("GAME PAUSED", True, TEXT_MAIN)
+        self.screen.blit(title, (mx + (modal_w - title.get_width()) // 2, my + 30))
+
+        self._draw_pause_btn(self.resume_btn, "RESUME", BTN_MOVE_ON)
+        self._draw_pause_btn(self.restart_btn, "RESTART", (90, 84, 106)) 
+        self._draw_pause_btn(self.exit_btn, "MAIN MENU", (140, 35, 35))
+
+    def _draw_pause_btn(self, rect, label, color):
+        pygame.draw.rect(self.screen, color, rect, border_radius=8)
+        rim = tuple(min(c + 50, 255) for c in color[:3])
+        pygame.draw.rect(self.screen, rim, rect, 2, border_radius=8)
+        txt = self.font_md.render(label, True, BTN_TEXT)
+        self.screen.blit(txt, (rect.centerx - txt.get_width() // 2,
+                               rect.centery - txt.get_height() // 2))
+
+# ── Winner overlay ────────────────────────────────────────────────────────
     def _draw_winner_overlay(self, manager):
         overlay = pygame.Surface((SCREEN_W, SCREEN_H), pygame.SRCALPHA)
         overlay.fill(WINNER_BG)
@@ -301,10 +365,11 @@ class Renderer:
 
         w_txt = self.font_xl.render(f"PLAYER {manager.winner} WINS!", True, WINNER_GOLD)
         self.screen.blit(w_txt, (SCREEN_W // 2 - w_txt.get_width() // 2,
-                                 SCREEN_H // 2 - 80))
-        r_txt = self.font_md.render("Press  R  to play again", True, TEXT_DIM)
-        self.screen.blit(r_txt, (SCREEN_W // 2 - r_txt.get_width() // 2,
-                                 SCREEN_H // 2 + 50))
+                                 SCREEN_H // 2 - 70))
+        
+        # Draw the interactive Win Buttons side-by-side
+        self._draw_pause_btn(self.win_restart_btn, "RESTART", (90, 84, 106)) 
+        self._draw_pause_btn(self.win_exit_btn, "MAIN MENU", (140, 35, 35))
 
     # ── Utility ───────────────────────────────────────────────────────────────
     def _cell_to_pixel(self, row, col):

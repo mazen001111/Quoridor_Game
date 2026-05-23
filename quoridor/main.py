@@ -20,59 +20,89 @@ def main():
 
     screen = pygame.display.set_mode((1000, 800))
     pygame.display.set_caption("Quoridor")
-
     clock = pygame.time.Clock()
 
-    # Launch menu and get configuration
-    mode, difficulty = show_start_menu(screen)
+    master_running = True
+    show_menu = True  # NEW: Tracks if we should show the menu or skip it
+    
+    # Declare these variables outside the loop so a "Restart" remembers them
+    mode = None
+    difficulty = None
 
-    manager = GameManager(mode=mode, ai_difficulty=difficulty)
-    renderer = Renderer(screen)
-    event_handler = EventHandler(manager)
+    while master_running:
+        
+        # Only show the dashboard if the user explicitly clicked "Main Menu" or if it's the first boot
+        if show_menu:
+            mode, difficulty = show_start_menu(screen)
+            
+        # Initialize core instances clean on game startup / restart
+        manager = GameManager(mode=mode, ai_difficulty=difficulty)
+        renderer = Renderer(screen)
+        event_handler = EventHandler(manager)
 
-    running = True
+        running = True
+        game_paused = False  
 
-    # Crash-catcher: Force Python to show us the error if it fails mid-game
-    try:
-        while running:
-            # A. Handle Human Inputs (Only if it's NOT the AI's turn)
-            if not manager.is_ai_turn():
-                for event in pygame.event.get():
-                    if event.type == pygame.QUIT:
+        try:
+            while running:
+                # A. Handle Human Inputs 
+                if not manager.is_ai_turn() or game_paused or manager.game_over:
+                    for event in pygame.event.get():
+                        if event.type == pygame.QUIT:
+                            running = False
+                            master_running = False
+
+                        # Detect if user clicked an interactive UI overlay block
+                        menu_action = event_handler.handle_menu_clicks(event, renderer, game_paused)
+                        
+                        if menu_action == "PAUSE":
+                            game_paused = True
+                        elif menu_action == "RESUME":
+                            game_paused = False
+                        
+                        # --- THE FIX IS HERE ---
+                        elif menu_action == "RESTART":
+                            show_menu = False  # Skip the start menu on the next pass
+                            running = False    # Break current match to re-instantiate GameManager immediately
+                        elif menu_action == "MAIN_MENU":
+                            show_menu = True   # Force the start menu to show on the next pass
+                            running = False    
+                        # -----------------------
+
+                        # Pass clicks to player board game engine ONLY when match isn't frozen
+                        if not game_paused and menu_action is None:
+                            event_handler.handle_event(event)
+                else:
+                    # Keep window responsive/closable during AI thinking operations
+                    for event in pygame.event.get(pygame.QUIT):
                         running = False
-                    event_handler.handle_event(event)
-            else:
-                # Keep window responsive/closable during AI thinking
-                for event in pygame.event.get(pygame.QUIT):
-                    running = False
+                        master_running = False
 
-            # B. Trigger AI Turn Processing
-            if manager.is_ai_turn() and not manager.game_over and running:
-                pygame.time.wait(200) # Quick pause for visual smoothness
-                
-                # Run the turn logic and capture success status
-                turn_successful = manager.handle_ai_turn()
-                
-                # Safety Valve: If the AI failed to make a valid move, 
-                # force turn switch to prevent freezing/terminating
-                if not turn_successful:
-                    print("Warning: AI generated an invalid move. Forcing turn switch.")
-                    manager.switch_turn()
+                # B. Trigger AI Turn Processing (Halted if UI state is active)
+                if not game_paused and manager.is_ai_turn() and not manager.game_over and running:
+                    pygame.time.wait(200) 
+                    
+                    turn_successful = manager.handle_ai_turn()
+                    
+                    if not turn_successful:
+                        print("Warning: AI generated an invalid move. Forcing turn switch.")
+                        manager.switch_turn()
 
-            # C. Render updated board frame
-            renderer.draw(manager, event_handler)
-            pygame.display.flip()
-            clock.tick(60)
+                # C. Render updated board frame layout
+                if running:
+                    renderer.draw(manager, event_handler, is_paused=game_paused)
+                    pygame.display.flip()
+                    clock.tick(60)
 
-    except Exception as e:
-        print("\n" + "="*50)
-        print("THE GAME CRASHED! DETAILED ERROR BELOW:")
-        print("="*50)
-        import traceback
-        traceback.print_exc()
-        print("="*50 + "\n")
-        # Keep terminal open so you can read it
-        input("Press Enter to close this window...") 
+        except Exception as e:
+            print("\n" + "="*50)
+            print("THE GAME CRASHED! DETAILED ERROR BELOW:")
+            print("="*50)
+            import traceback
+            traceback.print_exc()
+            print("="*50 + "\n")
+            input("Press Enter to close this window...") 
+            break 
 
     pygame.quit()
 
