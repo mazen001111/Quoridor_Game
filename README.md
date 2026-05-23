@@ -114,14 +114,8 @@ python main.py
 
 ## 🎬 Demo Video
 
-<<<<<<< HEAD
-▶️ [Watch the demo video (Google Drive)](https://drive.google.com/drive/folders/17x9fiqaWNOA9ZMfs_MOQA3saO11upBoO)
-
-> Note: This link opens a Google Drive folder containing the demo video for the game.
-=======
 ▶️ [Watch the demo on YouTube](https://drive.google.com/drive/folders/17x9fiqaWNOA9ZMfs_MOQA3saO11upBoO)
 
->>>>>>> dd5a52ad0e01cc0660553ad75ae03a4394fad2fd
 
 ---
 
