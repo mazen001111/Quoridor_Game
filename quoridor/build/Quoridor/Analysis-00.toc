@@ -17,7 +17,13 @@
  {},
  0,
  [],
- [('game\\__init__.py',
+ [('assets\\.gitkeep',
+   'D:\\AI Project Full\\quoridor\\assets\\.gitkeep',
+   'DATA'),
+  ('assets\\click.wav',
+   'D:\\AI Project Full\\quoridor\\assets\\click.wav',
+   'DATA'),
+  ('game\\__init__.py',
    'D:\\AI Project Full\\quoridor\\game\\__init__.py',
    'DATA'),
   ('game\\__pycache__\\__init__.cpython-312.pyc',
@@ -479,6 +485,10 @@
    'C:\\Users\\Mazen '
    'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\ast.py',
    'PYMODULE'),
+  ('stringprep',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\stringprep.py',
+   'PYMODULE'),
   ('tracemalloc',
    'C:\\Users\\Mazen '
    'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\tracemalloc.py',
@@ -486,10 +496,6 @@
   ('_py_abc',
    'C:\\Users\\Mazen '
    'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\_py_abc.py',
-   'PYMODULE'),
-  ('stringprep',
-   'C:\\Users\\Mazen '
-   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\stringprep.py',
    'PYMODULE'),
   ('ui.menus', 'D:\\AI Project Full\\quoridor\\ui\\menus.py', 'PYMODULE'),
   ('ui', 'D:\\AI Project Full\\quoridor\\ui\\__init__.py', 'PYMODULE'),
@@ -591,13 +597,49 @@
    'C:\\Users\\Mazen '
    'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\python312.dll',
    'BINARY'),
-  ('libpng16-16.dll',
-   'C:\\Users\\Mazen '
-   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pygame\\libpng16-16.dll',
-   'BINARY'),
   ('freetype.dll',
    'C:\\Users\\Mazen '
    'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pygame\\freetype.dll',
+   'BINARY'),
+  ('libmodplug-1.dll',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pygame\\libmodplug-1.dll',
+   'BINARY'),
+  ('libtiff-5.dll',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pygame\\libtiff-5.dll',
+   'BINARY'),
+  ('libopus-0.dll',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pygame\\libopus-0.dll',
+   'BINARY'),
+  ('libjpeg-9.dll',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pygame\\libjpeg-9.dll',
+   'BINARY'),
+  ('zlib1.dll',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pygame\\zlib1.dll',
+   'BINARY'),
+  ('SDL2_ttf.dll',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pygame\\SDL2_ttf.dll',
+   'BINARY'),
+  ('libogg-0.dll',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pygame\\libogg-0.dll',
+   'BINARY'),
+  ('SDL2_image.dll',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pygame\\SDL2_image.dll',
+   'BINARY'),
+  ('SDL2.dll',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pygame\\SDL2.dll',
+   'BINARY'),
+  ('libwebp-7.dll',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pygame\\libwebp-7.dll',
    'BINARY'),
   ('SDL2_mixer.dll',
    'C:\\Users\\Mazen '
@@ -607,49 +649,13 @@
    'C:\\Users\\Mazen '
    'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pygame\\libopusfile-0.dll',
    'BINARY'),
+  ('libpng16-16.dll',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pygame\\libpng16-16.dll',
+   'BINARY'),
   ('portmidi.dll',
    'C:\\Users\\Mazen '
    'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pygame\\portmidi.dll',
-   'BINARY'),
-  ('libwebp-7.dll',
-   'C:\\Users\\Mazen '
-   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pygame\\libwebp-7.dll',
-   'BINARY'),
-  ('SDL2_image.dll',
-   'C:\\Users\\Mazen '
-   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pygame\\SDL2_image.dll',
-   'BINARY'),
-  ('SDL2_ttf.dll',
-   'C:\\Users\\Mazen '
-   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pygame\\SDL2_ttf.dll',
-   'BINARY'),
-  ('libmodplug-1.dll',
-   'C:\\Users\\Mazen '
-   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pygame\\libmodplug-1.dll',
-   'BINARY'),
-  ('zlib1.dll',
-   'C:\\Users\\Mazen '
-   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pygame\\zlib1.dll',
-   'BINARY'),
-  ('libtiff-5.dll',
-   'C:\\Users\\Mazen '
-   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pygame\\libtiff-5.dll',
-   'BINARY'),
-  ('libjpeg-9.dll',
-   'C:\\Users\\Mazen '
-   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pygame\\libjpeg-9.dll',
-   'BINARY'),
-  ('libopus-0.dll',
-   'C:\\Users\\Mazen '
-   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pygame\\libopus-0.dll',
-   'BINARY'),
-  ('libogg-0.dll',
-   'C:\\Users\\Mazen '
-   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pygame\\libogg-0.dll',
-   'BINARY'),
-  ('SDL2.dll',
-   'C:\\Users\\Mazen '
-   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pygame\\SDL2.dll',
    'BINARY'),
   ('unicodedata.pyd',
    'C:\\Users\\Mazen '
@@ -799,6 +805,10 @@
    'C:\\Users\\Mazen '
    'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\VCRUNTIME140.dll',
    'BINARY'),
+  ('pygame\\libjpeg-9.dll',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pygame\\libjpeg-9.dll',
+   'BINARY'),
   ('pygame\\zlib1.dll',
    'C:\\Users\\Mazen '
    'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pygame\\zlib1.dll',
@@ -807,17 +817,13 @@
    'C:\\Users\\Mazen '
    'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pygame\\SDL2.dll',
    'BINARY'),
-  ('pygame\\libopus-0.dll',
-   'C:\\Users\\Mazen '
-   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pygame\\libopus-0.dll',
-   'BINARY'),
   ('pygame\\libogg-0.dll',
    'C:\\Users\\Mazen '
    'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pygame\\libogg-0.dll',
    'BINARY'),
-  ('pygame\\libjpeg-9.dll',
+  ('pygame\\libopus-0.dll',
    'C:\\Users\\Mazen '
-   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pygame\\libjpeg-9.dll',
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pygame\\libopus-0.dll',
    'BINARY'),
   ('libcrypto-3.dll',
    'C:\\Users\\Mazen '
@@ -827,13 +833,13 @@
    'C:\\Users\\Mazen '
    'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\VCRUNTIME140_1.dll',
    'BINARY'),
-  ('pygame\\libpng16-16.dll',
-   'C:\\Users\\Mazen '
-   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pygame\\libpng16-16.dll',
-   'BINARY'),
   ('pygame\\SDL2_image.dll',
    'C:\\Users\\Mazen '
    'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pygame\\SDL2_image.dll',
+   'BINARY'),
+  ('pygame\\libpng16-16.dll',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pygame\\libpng16-16.dll',
    'BINARY'),
   ('pygame\\SDL2_mixer.dll',
    'C:\\Users\\Mazen '
@@ -849,7 +855,13 @@
    'BINARY')],
  [],
  [],
- [('game\\__init__.py',
+ [('assets\\.gitkeep',
+   'D:\\AI Project Full\\quoridor\\assets\\.gitkeep',
+   'DATA'),
+  ('assets\\click.wav',
+   'D:\\AI Project Full\\quoridor\\assets\\click.wav',
+   'DATA'),
+  ('game\\__init__.py',
    'D:\\AI Project Full\\quoridor\\game\\__init__.py',
    'DATA'),
   ('game\\__pycache__\\__init__.cpython-312.pyc',
@@ -921,57 +933,17 @@
   ('base_library.zip',
    'D:\\AI Project Full\\quoridor\\build\\Quoridor\\base_library.zip',
    'DATA')],
- [('sre_parse',
+ [('keyword',
    'C:\\Users\\Mazen '
-   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\sre_parse.py',
-   'PYMODULE'),
-  ('ntpath',
-   'C:\\Users\\Mazen '
-   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\ntpath.py',
-   'PYMODULE'),
-  ('locale',
-   'C:\\Users\\Mazen '
-   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\locale.py',
-   'PYMODULE'),
-  ('heapq',
-   'C:\\Users\\Mazen '
-   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\heapq.py',
-   'PYMODULE'),
-  ('copyreg',
-   'C:\\Users\\Mazen '
-   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\copyreg.py',
-   'PYMODULE'),
-  ('genericpath',
-   'C:\\Users\\Mazen '
-   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\genericpath.py',
-   'PYMODULE'),
-  ('codecs',
-   'C:\\Users\\Mazen '
-   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\codecs.py',
-   'PYMODULE'),
-  ('warnings',
-   'C:\\Users\\Mazen '
-   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\warnings.py',
-   'PYMODULE'),
-  ('types',
-   'C:\\Users\\Mazen '
-   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\types.py',
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\keyword.py',
    'PYMODULE'),
   ('linecache',
    'C:\\Users\\Mazen '
    'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\linecache.py',
    'PYMODULE'),
-  ('abc',
+  ('heapq',
    'C:\\Users\\Mazen '
-   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\abc.py',
-   'PYMODULE'),
-  ('posixpath',
-   'C:\\Users\\Mazen '
-   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\posixpath.py',
-   'PYMODULE'),
-  ('sre_compile',
-   'C:\\Users\\Mazen '
-   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\sre_compile.py',
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\heapq.py',
    'PYMODULE'),
   ('encodings.zlib_codec',
    'C:\\Users\\Mazen '
@@ -1461,57 +1433,53 @@
    'C:\\Users\\Mazen '
    'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\encodings\\__init__.py',
    'PYMODULE'),
-  ('io',
+  ('codecs',
    'C:\\Users\\Mazen '
-   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\io.py',
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\codecs.py',
    'PYMODULE'),
   ('enum',
    'C:\\Users\\Mazen '
    'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\enum.py',
    'PYMODULE'),
-  ('_weakrefset',
+  ('operator',
    'C:\\Users\\Mazen '
-   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\_weakrefset.py',
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\operator.py',
    'PYMODULE'),
-  ('sre_constants',
+  ('posixpath',
    'C:\\Users\\Mazen '
-   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\sre_constants.py',
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\posixpath.py',
+   'PYMODULE'),
+  ('sre_compile',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\sre_compile.py',
+   'PYMODULE'),
+  ('ntpath',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\ntpath.py',
+   'PYMODULE'),
+  ('copyreg',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\copyreg.py',
    'PYMODULE'),
   ('_collections_abc',
    'C:\\Users\\Mazen '
    'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\_collections_abc.py',
    'PYMODULE'),
-  ('keyword',
-   'C:\\Users\\Mazen '
-   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\keyword.py',
-   'PYMODULE'),
   ('weakref',
    'C:\\Users\\Mazen '
    'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\weakref.py',
    'PYMODULE'),
-  ('operator',
+  ('warnings',
    'C:\\Users\\Mazen '
-   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\operator.py',
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\warnings.py',
    'PYMODULE'),
-  ('collections.abc',
+  ('types',
    'C:\\Users\\Mazen '
-   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\collections\\abc.py',
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\types.py',
    'PYMODULE'),
-  ('collections',
+  ('_weakrefset',
    'C:\\Users\\Mazen '
-   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\collections\\__init__.py',
-   'PYMODULE'),
-  ('stat',
-   'C:\\Users\\Mazen '
-   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\stat.py',
-   'PYMODULE'),
-  ('reprlib',
-   'C:\\Users\\Mazen '
-   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\reprlib.py',
-   'PYMODULE'),
-  ('functools',
-   'C:\\Users\\Mazen '
-   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\functools.py',
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\_weakrefset.py',
    'PYMODULE'),
   ('re._parser',
    'C:\\Users\\Mazen '
@@ -1532,6 +1500,50 @@
   ('re',
    'C:\\Users\\Mazen '
    'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\re\\__init__.py',
+   'PYMODULE'),
+  ('reprlib',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\reprlib.py',
+   'PYMODULE'),
+  ('genericpath',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\genericpath.py',
+   'PYMODULE'),
+  ('locale',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\locale.py',
+   'PYMODULE'),
+  ('stat',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\stat.py',
+   'PYMODULE'),
+  ('sre_parse',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\sre_parse.py',
+   'PYMODULE'),
+  ('sre_constants',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\sre_constants.py',
+   'PYMODULE'),
+  ('abc',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\abc.py',
+   'PYMODULE'),
+  ('functools',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\functools.py',
+   'PYMODULE'),
+  ('io',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\io.py',
+   'PYMODULE'),
+  ('collections.abc',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\collections\\abc.py',
+   'PYMODULE'),
+  ('collections',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\collections\\__init__.py',
    'PYMODULE'),
   ('traceback',
    'C:\\Users\\Mazen '
