@@ -1,12 +1,17 @@
 import sys
 import os
 
-# 1. Path Fix: Ensure Python looks in both directories for imports
-current_dir = os.path.dirname(os.path.abspath(__file__))
-parent_dir = os.path.dirname(current_dir)
-for path in [current_dir, parent_dir]:
-    if path not in sys.path:
-        sys.path.insert(0, path)
+# 1. Path Fix: Ensure Python looks in the right place whether running as script or EXE
+if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
+    # We are running as a PyInstaller --onefile EXE
+    sys.path.insert(0, sys._MEIPASS)
+else:
+    # We are running normally from VS Code
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    parent_dir = os.path.dirname(current_dir)
+    for path in [current_dir, parent_dir]:
+        if path not in sys.path:
+            sys.path.insert(0, path)
 
 import pygame
 from game.game_manager import GameManager
@@ -14,7 +19,7 @@ from ui.renderer import Renderer
 from ui.event_handler import EventHandler
 from ui.menus import show_start_menu
 
-
+# ... rest of your main.py stays exactly the same! ...
 def main():
     pygame.init()
 

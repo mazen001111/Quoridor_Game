@@ -1,0 +1,497 @@
+('D:\\AI Project Full\\quoridor\\build\\Quoridor\\PYZ-00.pyz',
+ [('__future__',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\__future__.py',
+   'PYMODULE'),
+  ('_compat_pickle',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\_compat_pickle.py',
+   'PYMODULE'),
+  ('_compression',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\_compression.py',
+   'PYMODULE'),
+  ('_py_abc',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\_py_abc.py',
+   'PYMODULE'),
+  ('_pydatetime',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\_pydatetime.py',
+   'PYMODULE'),
+  ('_pydecimal',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\_pydecimal.py',
+   'PYMODULE'),
+  ('_strptime',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\_strptime.py',
+   'PYMODULE'),
+  ('_threading_local',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\_threading_local.py',
+   'PYMODULE'),
+  ('ai', 'D:\\AI Project Full\\quoridor\\ai\\__init__.py', 'PYMODULE'),
+  ('ai.ai_easy', 'D:\\AI Project Full\\quoridor\\ai\\ai_easy.py', 'PYMODULE'),
+  ('ai.ai_hard', 'D:\\AI Project Full\\quoridor\\ai\\ai_hard.py', 'PYMODULE'),
+  ('ai.ai_medium',
+   'D:\\AI Project Full\\quoridor\\ai\\ai_medium.py',
+   'PYMODULE'),
+  ('ai.ai_player',
+   'D:\\AI Project Full\\quoridor\\ai\\ai_player.py',
+   'PYMODULE'),
+  ('argparse',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\argparse.py',
+   'PYMODULE'),
+  ('ast',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\ast.py',
+   'PYMODULE'),
+  ('base64',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\base64.py',
+   'PYMODULE'),
+  ('bisect',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\bisect.py',
+   'PYMODULE'),
+  ('bz2',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\bz2.py',
+   'PYMODULE'),
+  ('calendar',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\calendar.py',
+   'PYMODULE'),
+  ('contextlib',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\contextlib.py',
+   'PYMODULE'),
+  ('contextvars',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\contextvars.py',
+   'PYMODULE'),
+  ('copy',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\copy.py',
+   'PYMODULE'),
+  ('csv',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\csv.py',
+   'PYMODULE'),
+  ('dataclasses',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\dataclasses.py',
+   'PYMODULE'),
+  ('datetime',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\datetime.py',
+   'PYMODULE'),
+  ('decimal',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\decimal.py',
+   'PYMODULE'),
+  ('dis',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\dis.py',
+   'PYMODULE'),
+  ('email',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\email\\__init__.py',
+   'PYMODULE'),
+  ('email._encoded_words',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\email\\_encoded_words.py',
+   'PYMODULE'),
+  ('email._header_value_parser',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\email\\_header_value_parser.py',
+   'PYMODULE'),
+  ('email._parseaddr',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\email\\_parseaddr.py',
+   'PYMODULE'),
+  ('email._policybase',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\email\\_policybase.py',
+   'PYMODULE'),
+  ('email.base64mime',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\email\\base64mime.py',
+   'PYMODULE'),
+  ('email.charset',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\email\\charset.py',
+   'PYMODULE'),
+  ('email.contentmanager',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\email\\contentmanager.py',
+   'PYMODULE'),
+  ('email.encoders',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\email\\encoders.py',
+   'PYMODULE'),
+  ('email.errors',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\email\\errors.py',
+   'PYMODULE'),
+  ('email.feedparser',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\email\\feedparser.py',
+   'PYMODULE'),
+  ('email.generator',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\email\\generator.py',
+   'PYMODULE'),
+  ('email.header',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\email\\header.py',
+   'PYMODULE'),
+  ('email.headerregistry',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\email\\headerregistry.py',
+   'PYMODULE'),
+  ('email.iterators',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\email\\iterators.py',
+   'PYMODULE'),
+  ('email.message',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\email\\message.py',
+   'PYMODULE'),
+  ('email.parser',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\email\\parser.py',
+   'PYMODULE'),
+  ('email.policy',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\email\\policy.py',
+   'PYMODULE'),
+  ('email.quoprimime',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\email\\quoprimime.py',
+   'PYMODULE'),
+  ('email.utils',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\email\\utils.py',
+   'PYMODULE'),
+  ('fnmatch',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\fnmatch.py',
+   'PYMODULE'),
+  ('fractions',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\fractions.py',
+   'PYMODULE'),
+  ('game', 'D:\\AI Project Full\\quoridor\\game\\__init__.py', 'PYMODULE'),
+  ('game.board', 'D:\\AI Project Full\\quoridor\\game\\board.py', 'PYMODULE'),
+  ('game.game_manager',
+   'D:\\AI Project Full\\quoridor\\game\\game_manager.py',
+   'PYMODULE'),
+  ('game.pathfinder',
+   'D:\\AI Project Full\\quoridor\\game\\pathfinder.py',
+   'PYMODULE'),
+  ('game.pawn', 'D:\\AI Project Full\\quoridor\\game\\pawn.py', 'PYMODULE'),
+  ('getopt',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\getopt.py',
+   'PYMODULE'),
+  ('gettext',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\gettext.py',
+   'PYMODULE'),
+  ('gzip',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\gzip.py',
+   'PYMODULE'),
+  ('hashlib',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\hashlib.py',
+   'PYMODULE'),
+  ('importlib',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\importlib\\__init__.py',
+   'PYMODULE'),
+  ('importlib._abc',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\importlib\\_abc.py',
+   'PYMODULE'),
+  ('importlib._bootstrap',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\importlib\\_bootstrap.py',
+   'PYMODULE'),
+  ('importlib._bootstrap_external',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\importlib\\_bootstrap_external.py',
+   'PYMODULE'),
+  ('importlib.abc',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\importlib\\abc.py',
+   'PYMODULE'),
+  ('importlib.machinery',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\importlib\\machinery.py',
+   'PYMODULE'),
+  ('importlib.metadata',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\importlib\\metadata\\__init__.py',
+   'PYMODULE'),
+  ('importlib.metadata._adapters',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\importlib\\metadata\\_adapters.py',
+   'PYMODULE'),
+  ('importlib.metadata._collections',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\importlib\\metadata\\_collections.py',
+   'PYMODULE'),
+  ('importlib.metadata._functools',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\importlib\\metadata\\_functools.py',
+   'PYMODULE'),
+  ('importlib.metadata._itertools',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\importlib\\metadata\\_itertools.py',
+   'PYMODULE'),
+  ('importlib.metadata._meta',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\importlib\\metadata\\_meta.py',
+   'PYMODULE'),
+  ('importlib.metadata._text',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\importlib\\metadata\\_text.py',
+   'PYMODULE'),
+  ('importlib.readers',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\importlib\\readers.py',
+   'PYMODULE'),
+  ('importlib.resources',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\importlib\\resources\\__init__.py',
+   'PYMODULE'),
+  ('importlib.resources._adapters',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\importlib\\resources\\_adapters.py',
+   'PYMODULE'),
+  ('importlib.resources._common',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\importlib\\resources\\_common.py',
+   'PYMODULE'),
+  ('importlib.resources._itertools',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\importlib\\resources\\_itertools.py',
+   'PYMODULE'),
+  ('importlib.resources._legacy',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\importlib\\resources\\_legacy.py',
+   'PYMODULE'),
+  ('importlib.resources.abc',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\importlib\\resources\\abc.py',
+   'PYMODULE'),
+  ('importlib.resources.readers',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\importlib\\resources\\readers.py',
+   'PYMODULE'),
+  ('importlib.util',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\importlib\\util.py',
+   'PYMODULE'),
+  ('inspect',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\inspect.py',
+   'PYMODULE'),
+  ('ipaddress',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\ipaddress.py',
+   'PYMODULE'),
+  ('logging',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\logging\\__init__.py',
+   'PYMODULE'),
+  ('lzma',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\lzma.py',
+   'PYMODULE'),
+  ('numbers',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\numbers.py',
+   'PYMODULE'),
+  ('opcode',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\opcode.py',
+   'PYMODULE'),
+  ('pathlib',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\pathlib.py',
+   'PYMODULE'),
+  ('pickle',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\pickle.py',
+   'PYMODULE'),
+  ('platform',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\platform.py',
+   'PYMODULE'),
+  ('pprint',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\pprint.py',
+   'PYMODULE'),
+  ('py_compile',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\py_compile.py',
+   'PYMODULE'),
+  ('pygame',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pygame\\__init__.py',
+   'PYMODULE'),
+  ('pygame.colordict',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pygame\\colordict.py',
+   'PYMODULE'),
+  ('pygame.cursors',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pygame\\cursors.py',
+   'PYMODULE'),
+  ('pygame.fastevent',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pygame\\fastevent.py',
+   'PYMODULE'),
+  ('pygame.ftfont',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pygame\\ftfont.py',
+   'PYMODULE'),
+  ('pygame.macosx',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pygame\\macosx.py',
+   'PYMODULE'),
+  ('pygame.pkgdata',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pygame\\pkgdata.py',
+   'PYMODULE'),
+  ('pygame.sndarray',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pygame\\sndarray.py',
+   'PYMODULE'),
+  ('pygame.sprite',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pygame\\sprite.py',
+   'PYMODULE'),
+  ('pygame.surfarray',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pygame\\surfarray.py',
+   'PYMODULE'),
+  ('pygame.sysfont',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pygame\\sysfont.py',
+   'PYMODULE'),
+  ('pygame.threads',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pygame\\threads\\__init__.py',
+   'PYMODULE'),
+  ('pygame.version',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\pygame\\version.py',
+   'PYMODULE'),
+  ('queue',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\queue.py',
+   'PYMODULE'),
+  ('quopri',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\quopri.py',
+   'PYMODULE'),
+  ('random',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\random.py',
+   'PYMODULE'),
+  ('selectors',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\selectors.py',
+   'PYMODULE'),
+  ('shutil',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\shutil.py',
+   'PYMODULE'),
+  ('signal',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\signal.py',
+   'PYMODULE'),
+  ('socket',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\socket.py',
+   'PYMODULE'),
+  ('statistics',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\statistics.py',
+   'PYMODULE'),
+  ('string',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\string.py',
+   'PYMODULE'),
+  ('stringprep',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\stringprep.py',
+   'PYMODULE'),
+  ('subprocess',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\subprocess.py',
+   'PYMODULE'),
+  ('tarfile',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\tarfile.py',
+   'PYMODULE'),
+  ('tempfile',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\tempfile.py',
+   'PYMODULE'),
+  ('textwrap',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\textwrap.py',
+   'PYMODULE'),
+  ('threading',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\threading.py',
+   'PYMODULE'),
+  ('token',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\token.py',
+   'PYMODULE'),
+  ('tokenize',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\tokenize.py',
+   'PYMODULE'),
+  ('tracemalloc',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\tracemalloc.py',
+   'PYMODULE'),
+  ('typing',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\typing.py',
+   'PYMODULE'),
+  ('ui', 'D:\\AI Project Full\\quoridor\\ui\\__init__.py', 'PYMODULE'),
+  ('ui.event_handler',
+   'D:\\AI Project Full\\quoridor\\ui\\event_handler.py',
+   'PYMODULE'),
+  ('ui.menus', 'D:\\AI Project Full\\quoridor\\ui\\menus.py', 'PYMODULE'),
+  ('ui.renderer', 'D:\\AI Project Full\\quoridor\\ui\\renderer.py', 'PYMODULE'),
+  ('urllib',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\urllib\\__init__.py',
+   'PYMODULE'),
+  ('urllib.parse',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\urllib\\parse.py',
+   'PYMODULE'),
+  ('zipfile',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\zipfile\\__init__.py',
+   'PYMODULE'),
+  ('zipfile._path',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\zipfile\\_path\\__init__.py',
+   'PYMODULE'),
+  ('zipfile._path.glob',
+   'C:\\Users\\Mazen '
+   'Hesham\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\zipfile\\_path\\glob.py',
+   'PYMODULE')])
