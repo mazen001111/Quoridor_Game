@@ -2,13 +2,6 @@
 renderer.py
 -----------
 Premium dark board-game visual redesign for Quoridor.
-
-Layout (1000x800 window):
-  - Top header bar: turn indicator + message
-  - Left sidebar: Player 1 wall rack
-  - Right sidebar: Player 2 wall rack
-  - Centre: 9x9 dark board
-  - Bottom bar: player pill | MOVE btn | WALL btn | UNDO btn | REDO btn
 """
 import pygame
 
@@ -103,6 +96,15 @@ class Renderer:
     def __init__(self, screen):
         self.screen = screen
         pygame.font.init()
+        
+        # Initialize Audio Mixer and load the click sound
+        pygame.mixer.init()
+        try:
+            self.move_sound = pygame.mixer.Sound("assets/click.wav")
+            self.move_sound.set_volume(0.5)
+        except Exception:
+            print("Warning: assets/click.wav not found. Sound disabled.")
+            self.move_sound = None
 
         def load_font(size, bold=False):
             for name in ("Segoe UI", "DejaVu Sans", "Ubuntu", "Arial"):
@@ -118,24 +120,27 @@ class Renderer:
         self.font_xl  = load_font(52, bold=True)
         self.font_hud = load_font(20, bold=True)
         
+        # Track pawn visual coordinates for smooth animation interpolation
+        self.pawn_pixel_pos = {1: None, 2: None}
+        
         # UI Menu Elements Geometry
         self.menu_icon_rect = pygame.Rect(SCREEN_W - 60, 20, 40, 40)
         
-        # Modal pause menu geometry
         modal_w, modal_h = 320, 320
         mx = (SCREEN_W - modal_w) // 2
         my = (SCREEN_H - modal_h) // 2
         self.resume_btn = pygame.Rect(mx + 40, my + 90, modal_w - 80, 50)
         self.restart_btn = pygame.Rect(mx + 40, my + 160, modal_w - 80, 50)
         self.exit_btn = pygame.Rect(mx + 40, my + 230, modal_w - 80, 50)
-        # Winner overlay button geometry
+
+        # Winner overlay buttons
         self.win_restart_btn = pygame.Rect(SCREEN_W // 2 - 190, SCREEN_H // 2 + 10, 170, 50)
         self.win_exit_btn = pygame.Rect(SCREEN_W // 2 + 20, SCREEN_H // 2 + 10, 170, 50)
 
     # ── Master draw ────────────────────────────────────────────────────────────
-    def draw(self, manager, event_handler=None, is_paused=False):
+    def draw(self, manager, event_handler=None, is_paused=False, p1_time=None, p2_time=None):
         self.screen.fill(BG_DARK)
-        self._draw_header(manager)
+        self._draw_header(manager, p1_time, p2_time)
         self._draw_board_bg()
         self._draw_highlights(event_handler)
         self._draw_ghost_wall(event_handler)
@@ -152,9 +157,8 @@ class Renderer:
             self._draw_pause_overlay()
 
     # ── Header ────────────────────────────────────────────────────────────────
-    def _draw_header(self, manager):
-        pygame.draw.rect(self.screen, HEADER_BG,
-                         pygame.Rect(0, 0, SCREEN_W, BOARD_OFFSET_Y - 4))
+    def _draw_header(self, manager, p1_time, p2_time):
+        pygame.draw.rect(self.screen, HEADER_BG, pygame.Rect(0, 0, SCREEN_W, BOARD_OFFSET_Y - 4))
         accent = HEADER_ACCENT1 if manager.current_player == 1 else HEADER_ACCENT2
         pygame.draw.rect(self.screen, accent, pygame.Rect(0, 0, SCREEN_W, 3))
 
@@ -165,6 +169,18 @@ class Renderer:
         if manager.message:
             msg = self.font_sm.render(manager.message, True, TEXT_DIM)
             self.screen.blit(msg, (SCREEN_W // 2 - msg.get_width() // 2, 52))
+
+        # Render Timers if they exist
+        if p1_time is not None and p2_time is not None:
+            def format_time(t):
+                t = max(0, int(t))
+                return f"{t//60:02d}:{t%60:02d}"
+                
+            t1_surf = self.font_lg.render(format_time(p1_time), True, TEXT_P1)
+            t2_surf = self.font_lg.render(format_time(p2_time), True, TEXT_P2)
+            
+            self.screen.blit(t1_surf, (30, 20))
+            self.screen.blit(t2_surf, (SCREEN_W - 130, 20))
 
     # ── Board background & cells ───────────────────────────────────────────────
     def _draw_board_bg(self):
@@ -187,9 +203,35 @@ class Renderer:
     def _draw_pawns(self, manager):
         for pid, pawn in manager.pawns.items():
             row, col = pawn.position
-            x, y = self._cell_to_pixel(row, col)
-            cx = x + CELL_SIZE // 2
-            cy = y + CELL_SIZE // 2
+            target_x, target_y = self._cell_to_pixel(row, col)
+
+            # Initialize first placement instantly
+            if self.pawn_pixel_pos[pid] is None:
+                self.pawn_pixel_pos[pid] = [target_x, target_y]
+
+            current_x, current_y = self.pawn_pixel_pos[pid]
+
+            # Calculate distance to target
+            dx = target_x - current_x
+            dy = target_y - current_y
+
+            # Smooth ease-out animation formula (Moves 25% of the distance every frame)
+            if abs(dx) > 0.5 or abs(dy) > 0.5:
+                self.pawn_pixel_pos[pid][0] += dx * 0.25
+                self.pawn_pixel_pos[pid][1] += dy * 0.25
+                
+                # Snap to grid and play sound when extremely close
+                if abs(dx) < 2 and abs(dy) < 2:
+                    self.pawn_pixel_pos[pid] = [target_x, target_y]
+                    if self.move_sound:
+                        self.move_sound.play()
+            else:
+                self.pawn_pixel_pos[pid] = [target_x, target_y]
+
+            # Draw based on the animating coordinates
+            x, y = self.pawn_pixel_pos[pid]
+            cx = int(x + CELL_SIZE // 2)
+            cy = int(y + CELL_SIZE // 2)
             r  = CELL_SIZE // 2 - 6
             color = PAWN_P1 if pid == 1 else PAWN_P2
 
@@ -296,11 +338,10 @@ class Renderer:
                             BTN_WALL_ON if mode == "wall" else BTN_WALL_OFF,
                             active=(mode == "wall"))
                             
-        # New Undo / Redo Buttons
+        # Undo / Redo Buttons
         self._draw_mode_btn(BTN_UNDO_RECT, "UNDO", BTN_UNDO, active=False)
         self._draw_mode_btn(BTN_REDO_RECT, "REDO", BTN_REDO, active=False)
 
-        # Updated Keybinding Hint
         hint = self.font_sm.render("W: toggle mode  |  U: undo  |  P: redo", True, TEXT_DIM)
         self.screen.blit(hint, (SCREEN_W // 2 - hint.get_width() // 2,
                                 BOTTOM_BAR_Y + BOTTOM_BAR_H - 22))
@@ -352,7 +393,7 @@ class Renderer:
         self.screen.blit(txt, (rect.centerx - txt.get_width() // 2,
                                rect.centery - txt.get_height() // 2))
 
-# ── Winner overlay ────────────────────────────────────────────────────────
+    # ── Winner overlay ────────────────────────────────────────────────────────
     def _draw_winner_overlay(self, manager):
         overlay = pygame.Surface((SCREEN_W, SCREEN_H), pygame.SRCALPHA)
         overlay.fill(WINNER_BG)
@@ -367,7 +408,6 @@ class Renderer:
         self.screen.blit(w_txt, (SCREEN_W // 2 - w_txt.get_width() // 2,
                                  SCREEN_H // 2 - 70))
         
-        # Draw the interactive Win Buttons side-by-side
         self._draw_pause_btn(self.win_restart_btn, "RESTART", (90, 84, 106)) 
         self._draw_pause_btn(self.win_exit_btn, "MAIN MENU", (140, 35, 35))
 

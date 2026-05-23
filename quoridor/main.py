@@ -1,111 +1,162 @@
 import sys
 import os
+import pygame
 
-# 1. Path Fix: Ensure Python looks in the right place whether running as script or EXE
 if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
-    # We are running as a PyInstaller --onefile EXE
     sys.path.insert(0, sys._MEIPASS)
 else:
-    # We are running normally from VS Code
     current_dir = os.path.dirname(os.path.abspath(__file__))
     parent_dir = os.path.dirname(current_dir)
     for path in [current_dir, parent_dir]:
         if path not in sys.path:
             sys.path.insert(0, path)
 
-import pygame
 from game.game_manager import GameManager
 from ui.renderer import Renderer
 from ui.event_handler import EventHandler
 from ui.menus import show_start_menu
 
-# ... rest of your main.py stays exactly the same! ...
+
+# --- Quick pop-up to ask for a timer before the game launches ---
+def show_timer_menu(screen):
+    font = pygame.font.SysFont("Arial", 30, bold=True)
+    small_font = pygame.font.SysFont("Arial", 22)
+    
+    options = [(300, "No Timer", 0), (450, "5 Minutes", 5), (600, "10 Minutes", 10)]
+    
+    while True:
+        screen.fill((18, 14, 24)) 
+        title = font.render("Select Match Time Limit", True, (255, 255, 255))
+        screen.blit(title, (500 - title.get_width()//2, 250))
+        
+        mouse_pos = pygame.mouse.get_pos()
+        clicked = False
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                clicked = True
+
+        for x_pos, text, mins in options:
+            btn_rect = pygame.Rect(x_pos - 60, 350, 120, 50)
+            color = (50, 150, 230) if btn_rect.collidepoint(mouse_pos) else (80, 80, 90)
+            pygame.draw.rect(screen, color, btn_rect, border_radius=8)
+            
+            lbl = small_font.render(text, True, (255, 255, 255))
+            screen.blit(lbl, (btn_rect.centerx - lbl.get_width()//2, btn_rect.centery - lbl.get_height()//2))
+            
+            if clicked and btn_rect.collidepoint(mouse_pos):
+                return mins 
+
+        pygame.display.flip()
+# --------------------------------------------------------------------
+
+
 def main():
     pygame.init()
-
     screen = pygame.display.set_mode((1000, 800))
     pygame.display.set_caption("Quoridor")
     clock = pygame.time.Clock()
 
     master_running = True
-    show_menu = True  # NEW: Tracks if we should show the menu or skip it
+    show_menu = True  
     
-    # Declare these variables outside the loop so a "Restart" remembers them
     mode = None
     difficulty = None
+    timer_minutes = 0
 
     while master_running:
         
-        # Only show the dashboard if the user explicitly clicked "Main Menu" or if it's the first boot
         if show_menu:
             mode, difficulty = show_start_menu(screen)
+            timer_minutes = show_timer_menu(screen) 
             
-        # Initialize core instances clean on game startup / restart
         manager = GameManager(mode=mode, ai_difficulty=difficulty)
         renderer = Renderer(screen)
         event_handler = EventHandler(manager)
 
         running = True
         game_paused = False  
+        
+        # Setup timers in seconds
+        p1_time = timer_minutes * 60 if timer_minutes > 0 else None
+        p2_time = timer_minutes * 60 if timer_minutes > 0 else None
+        
+        # NEW: Timer to track how long the AI has been "thinking"
+        ai_delay_timer = 0.0
 
         try:
             while running:
-                # A. Handle Human Inputs 
+                # Capture the exact time passed this frame (in seconds)
+                dt = clock.tick(60) / 1000.0
+
                 if not manager.is_ai_turn() or game_paused or manager.game_over:
                     for event in pygame.event.get():
                         if event.type == pygame.QUIT:
                             running = False
                             master_running = False
 
-                        # Detect if user clicked an interactive UI overlay block
                         menu_action = event_handler.handle_menu_clicks(event, renderer, game_paused)
                         
                         if menu_action == "PAUSE":
                             game_paused = True
                         elif menu_action == "RESUME":
                             game_paused = False
-                        
-                        # --- THE FIX IS HERE ---
                         elif menu_action == "RESTART":
-                            show_menu = False  # Skip the start menu on the next pass
-                            running = False    # Break current match to re-instantiate GameManager immediately
-                        elif menu_action == "MAIN_MENU":
-                            show_menu = True   # Force the start menu to show on the next pass
+                            show_menu = False  
                             running = False    
-                        # -----------------------
+                        elif menu_action == "MAIN_MENU":
+                            show_menu = True   
+                            running = False    
 
-                        # Pass clicks to player board game engine ONLY when match isn't frozen
                         if not game_paused and menu_action is None:
                             event_handler.handle_event(event)
                 else:
-                    # Keep window responsive/closable during AI thinking operations
                     for event in pygame.event.get(pygame.QUIT):
                         running = False
                         master_running = False
 
-                # B. Trigger AI Turn Processing (Halted if UI state is active)
+                # --- NEW: Non-Blocking AI Delay Logic ---
                 if not game_paused and manager.is_ai_turn() and not manager.game_over and running:
-                    pygame.time.wait(200) 
+                    ai_delay_timer += dt  # Add the frame time to the AI's thinking timer
                     
-                    turn_successful = manager.handle_ai_turn()
-                    
-                    if not turn_successful:
-                        print("Warning: AI generated an invalid move. Forcing turn switch.")
-                        manager.switch_turn()
+                    if ai_delay_timer >= 1.0:  # Wait exactly 1.0 seconds
+                        turn_successful = manager.handle_ai_turn()
+                        if not turn_successful:
+                            manager.switch_turn()
+                            
+                        ai_delay_timer = 0.0  # Reset for the next time it's the AI's turn
+                else:
+                    ai_delay_timer = 0.0  # Keep it reset when it is the human's turn
+                # ----------------------------------------
+                
+                # --- Timer Countdown Logic ---
+                if not game_paused and not manager.game_over and p1_time is not None:
+                    if manager.current_player == 1:
+                        p1_time -= dt
+                        if p1_time <= 0:
+                            manager.game_over = True
+                            manager.winner = 2
+                            manager.message = "Time's up! Player 2 Wins!"
+                    else:
+                        p2_time -= dt
+                        if p2_time <= 0:
+                            manager.game_over = True
+                            manager.winner = 1
+                            manager.message = "Time's up! Player 1 Wins!"
+                # ----------------------------------
 
-                # C. Render updated board frame layout
                 if running:
-                    renderer.draw(manager, event_handler, is_paused=game_paused)
+                    renderer.draw(manager, event_handler, is_paused=game_paused, p1_time=p1_time, p2_time=p2_time)
                     pygame.display.flip()
-                    clock.tick(60)
 
         except Exception as e:
             print("\n" + "="*50)
             print("THE GAME CRASHED! DETAILED ERROR BELOW:")
-            print("="*50)
             import traceback
             traceback.print_exc()
-            print("="*50 + "\n")
             input("Press Enter to close this window...") 
             break 
 
