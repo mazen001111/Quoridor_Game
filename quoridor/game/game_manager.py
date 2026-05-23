@@ -16,6 +16,7 @@ This module is responsible for:
 from game.board import Board
 from game.pawn import Pawn
 from game.pathfinder import get_valid_moves, bfs_path_exists
+from ai.ai_player import get_ai_action
 
 
 class GameManager:
@@ -267,10 +268,13 @@ class GameManager:
         """
         if not self.is_ai_turn():
             return False
-
-        # TODO: Connect this when ai_player.py is implemented.
-        self.message = "AI turn logic is not implemented yet."
-        return False
+        action = get_ai_action(self)
+        if action[0] == "move":
+         return self.handle_pawn_move(action[1])
+        elif action[0] == "wall":
+         _, r, c, ori = action
+         return self.handle_wall_placement(r, c, ori)
+        return True
 
     # ------------------------------------------------------------------
     # State access for UI
