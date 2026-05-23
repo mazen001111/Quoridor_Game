@@ -114,9 +114,8 @@ python main.py
 
 ## 🎬 Demo Video
 
-▶️ [Watch the demo on YouTube](#)
+▶️ [Watch the demo on YouTube](#https://drive.google.com/drive/folders/17x9fiqaWNOA9ZMfs_MOQA3saO11upBoO)
 
-> *(Replace the `#` above with your actual video link)*
 
 ---
 
