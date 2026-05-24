@@ -1,7 +1,6 @@
 """event_handler.py — Mouse and keyboard input handling."""
 import pygame
 
-# Import button rects and geometry from renderer
 from ui.renderer import (
     BTN_MOVE_RECT, BTN_WALL_RECT, BTN_RESET_RECT,
     BOARD_OFFSET_X, BOARD_OFFSET_Y, CELL_SIZE, GAP,
@@ -29,9 +28,14 @@ class EventHandler:
             self._toggle_mode()
         elif key == pygame.K_r:
             self._reset()
+        elif key == pygame.K_u:          # ← UNDO
+            self.manager.undo()
+            self._clear_selection()
+        elif key == pygame.K_p:          # ← REDO
+            self.manager.redo()
+            self._clear_selection()
 
     def handle_click(self, mouse_pos):
-        # Button bar clicks first
         if BTN_RESET_RECT.collidepoint(mouse_pos):
             self._reset()
             return
@@ -57,14 +61,19 @@ class EventHandler:
             self.hovered_wall = None
 
     # ── Internal helpers ──────────────────────────────────────────────────────
+
+    def _clear_selection(self):
+        """Drop any pending pawn selection — used after undo/redo."""
+        self.selected_pawn = False
+        self.valid_moves   = []
+        self.hovered_wall  = None
+
     def _toggle_mode(self):
         self._set_mode("wall" if self.mode == "move" else "move")
 
     def _set_mode(self, mode):
         self.mode = mode
-        self.selected_pawn = False
-        self.valid_moves = []
-        self.hovered_wall = None
+        self._clear_selection()
         if mode == "move":
             self.manager.message = "Move mode: click your pawn."
         else:
@@ -72,9 +81,7 @@ class EventHandler:
 
     def _reset(self):
         self.manager.reset_game()
-        self.selected_pawn = False
-        self.valid_moves = []
-        self.hovered_wall = None
+        self._clear_selection()
         self.mode = "move"
 
     def _handle_move_click(self, mouse_pos):
@@ -92,12 +99,10 @@ class EventHandler:
 
         if self.selected_pawn and cell in self.valid_moves:
             self.manager.handle_pawn_move(cell)
-            self.selected_pawn = False
-            self.valid_moves = []
+            self._clear_selection()
             return
 
-        self.selected_pawn = False
-        self.valid_moves = []
+        self._clear_selection()
         self.manager.message = "Click your pawn first."
 
     def _handle_wall_click(self, mouse_pos):
@@ -132,11 +137,9 @@ class EventHandler:
         row = y // (CELL_SIZE + GAP)
         xi  = x % (CELL_SIZE + GAP)
         yi  = y % (CELL_SIZE + GAP)
-        # Horizontal wall: gap below a cell
         if xi < CELL_SIZE and CELL_SIZE <= yi < CELL_SIZE + GAP:
             if 0 <= row <= 7 and 0 <= col <= 7:
                 return int(row), int(col), "H"
-        # Vertical wall: gap to the right of a cell
         if yi < CELL_SIZE and CELL_SIZE <= xi < CELL_SIZE + GAP:
             if 0 <= row <= 7 and 0 <= col <= 7:
                 return int(row), int(col), "V"
